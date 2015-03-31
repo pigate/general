@@ -1,0 +1,41 @@
+git config --list
+git config --global user.name "Mimi C"
+git config --global user.email mimchiang@gmail.com
+git clone htttps://github.com/libgit2/libgit2  #default dir libgit2 
+git clone htttps://github.com/libgit2/libgit2 mylibgit #place in this dir
+
+git add README.md #add untracked files
+git add *.md #anything ending with md 
+
+git diff #what exactly you changed. unstaged changes. Compares working dir vs staged. No output if all changes staged.
+ #eg. if stage CON.md, then edit, will tell you what you changed.
+git diff --staged #what exactly you changed. staged vs. cached (last commit).
+git diff --cached #what exactly you changed. same as git diff --staged
+git status -s #A --> Added, M --> Modified, MM --> Modifed 2x, etc, ?? -> Untracked
+
+git commit -am "added new benchmarks" #skip staging. Add everything.
+git commit -a -m "Same thing"
+#p51
+
+
+git rm -r --cached somefolder/bin/* #remove somefolder/bin/* stuff from cached
+
+
+vim .gitignore
+bin/*  #ignore anything in bin
+he .gitignore of your dream seems to be:
+
+#####
+bin/
+on the top level.
+
+You're a genius :) That worked, but I don't want to ignore files and directories that have 'bin' as part of their names, sorry. I've added that to the question description, but you still get a vote up :) –  Ben Hymers Sep 24 '09 at 9:20
+7	 	
+But it will not get files that have bin as a part of their names ignored. I didn't say *bin*, did I? –  Michael Krelin - hacker Sep 24 '09 at 9:24
+20	 	
+The only drawback is that it will ignore bin files, not only directories. I can't tell right out of my head whether using bin/ will cure that, but it may. –  Michael Krelin - hacker Sep 24 '09 at 9:26
+1	 	
+Yep, bin/ works, you get an extra vote up for your comment ;) –  Ben Hymers Sep 24 '09 at 9:43
+1	 	
+Heh, thanks Bombe, now the '/' is in the answer ;-) 
+###

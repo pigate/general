@@ -1,0 +1,73 @@
+You will need to implement a CustomOplDataSource for your mod file
+
+class MyParams : CustomOplDataSource
+{
+  List<T> _list1;
+  CustomT1 _cat;
+  List<CustomT2> _dogs;
+  float _MinCost;
+
+  MyParams(OplFactory oplF, List<T> list1, CustomT1 cat,  List<CustomT2> dogs, float MinCost): base(oplF){
+	_list1 = list1;
+	_cat =  cat;
+	_dogs = dogs;
+	_MinCost = MinCost;
+  }
+  
+  //determines how datasource elements are read from its members
+  public override void CustomRead(){
+    OplDataHandler handler = DataHandler; //from parent class. CustomOplDataSource.DataHandler
+	
+	//handler deals with one element at a time.
+	handler.StartElement("FavAnimalName");
+	handler.AddStringItem(cat.Name);
+	//set FavAnimalName = cat.Name (string)
+	handler.EndElement();
+	
+	handler.StartElement("MinCost");
+	handler.AddNumItem(MinCost);
+	handler.EndElement();
+	
+	handler.StartElement("petIDs");
+	handler.StartSet();
+	foreach(var x in _list1){
+	  handler.AddStringItem(x.ID);
+	}
+	handler.EndSet();
+	handler.EndElement();
+	
+	handler.StartElement("Pets");
+	handler.StartIndexedArray();
+	for(int i = 0; i < _list1.items.Count; i++){
+	  handler.SetItemStringIndex(_list1.items[i].ID);
+	  
+	  handler.StartNamedTuple();
+	  handler.SetItemName("foodCost");
+	  handler.AddNumItem(_list1.items[i].foodCost);
+	  handler.SetItemName("accessories");
+	  handler.StartSet();
+	  foreach(string accID in _list1.items[i].accessories){
+	    handler.AddStringItem(accID);
+	  }
+	  handler.EndSet();
+	  //
+	  handler.SetItemName("healthCost");
+	  handler.StartSet();
+	  foreach(string healthConsideration in _list1.items[i].heathConsiderations){
+	    handler.AddStringItem(healthConsideration);
+	  }
+	  handler.EndSet();
+	  //
+	  handler.SetItemName("lifespan");
+	  handler.AddNumItem(_list1.items[i].lifespan);
+	  //
+	  handler.EndNamedTuple();
+	  
+	}
+	handler.EndIndexedArray();
+	handler.EndElement();
+	
+	handler.StartElement("UserIDS");
+	handler.StartSet();
+  }	
+}

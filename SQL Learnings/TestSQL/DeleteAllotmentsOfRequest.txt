@@ -1,0 +1,31 @@
+USE EFTest;
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'DeleteAllotmentsOfRequest')
+BEGIN
+DROP PROCEDURE DeleteAllotmentsOfRequest
+PRINT 'DROPPED PROCEDURE: DeleteAllotmentsOfRequest'
+END
+GO
+
+CREATE PROCEDURE DeleteAllotmentsOfRequest
+  @ReqID varchar(50),
+  @ErrorMessage varchar(MAX) OUTPUT,
+  @Status int OUTPUT
+AS
+BEGIN
+  BEGIN TRAN tx
+  BEGIN TRY
+    
+	DELETE FROM Allotment WHERE ReqID = @ReqID
+    COMMIT TRAN tx
+	
+	SET @Status = 1
+  END TRY
+  BEGIN CATCH
+    ROLLBACK TRAN tx
+    SET @Status = 0
+	SET @ErrorMessage = 'Cannot Delete Allotments for Request with ReqID' + @ReqID + '. ' + ERROR_MESSAGE()
+  END CATCH
+END
+RETURN
+GO

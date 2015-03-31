@@ -1,0 +1,108 @@
+//Libraries
+using ILOG.Concert;
+//http://www-01.ibm.com/support/knowledgecenter/SSSA5P_12.2.0/ilog.odms.ide.help/html/refdotnetopl/html/T_ILOG_OPL_OplModel.htm
+using ILOG.CPLEX;
+
+
+If you get type initializer error (TypeInitializationException), make sure that you have the correct version of CPLEX linked. I had two versions installed, an x86 (32 bit) version, and x64 (64 bit version)
+I needed to relink 
+        public static int CallOPLCatering
+            (
+            string FilePath,
+            out SolutionInterpretters thisSolution
+            )
+        {
+
+		
+               OplFactory.DebugMode = true;
+                OplFactory oplF = new OplFactory();
+				
+				//OplFactory helps you create instances of OPL objects like models, datasources, etc.
+				//http://www-01.ibm.com/support/knowledgecenter/SSSA5P_12.2.0/ilog.odms.ide.help/html/refdotnetopl/html/T_ILOG_OPL_OplFactory.htm
+				//OplFactory.end() --> clean up memory used by all objects allocated by this factory
+				//can call end() on indiv objects earlier to clean up earlier 
+				
+                OplErrorHandler errHandler = oplF.CreateOplErrorHandler(Console.Out);
+				
+				//notifies error and warnings
+				//by default writes to cout
+				//http://www-01.ibm.com/support/knowledgecenter/SSSA5P_12.2.0/ilog.odms.ide.help/html/refdotnetopl/html/T_ILOG_OPL_OplErrorHandler.htm
+                
+                OplModelSource modelSource = oplF.CreateOplModelSource(FilePath);
+                OplSettings settings = oplF.CreateOplSettings(errHandler);
+				
+                OplModelDefinition def = oplF.CreateOplModelDefinition(modelSource, settings);
+                Cplex cplex = oplF.CreateCplex();
+                OplModel opl = oplF.CreateOplModel(def, cplex);
+                OplDataSource dataSource = new MyParams(oplF, Users, menu, Ingredients, userRatings, thisMeal, MIN_RATING, MaxBudget, ui_combos, chosenItems);
+                opl.AddDataSource(dataSource);
+                opl.Generate();
+
+                if ((cplex.Solve()) && (cplex.GetStatus() == Cplex.Status.Optimal))
+                {
+                    int objValue = opl.Cplex.ObjValue;
+                    IIntMap AllAssignments = opl.GetElement("Assignment").AsIntMap();
+                    int[,] Solution_Assignment = new int[Users.Count(), menu.items.Count()];
+                    for (int i = 0; i < Users.Count; i++)
+                    {
+						//IIntMap <--  list of ints
+						//http://www-01.ibm.com/support/knowledgecenter/SSSA5P_12.2.0/ilog.odms.ide.help/html/refdotnetopl/html/T_ILOG_Concert_IIntMap.htm
+                        IIntMap thisRow = AllAssignments.GetSub(Users[i].UserID);
+                        for (int j = 0; j < menu.items.Count; j++)
+                        {
+                            Solution_Assignment[i, j] = thisRow.Get(menu.items[j].UniqueItemID);
+                        }
+                    }
+                    if (whichMode == OptimModes.MINIMIZE_BUDGET)
+                    {
+                        status = 1;
+                        thisSolution = new SolutionInterpretters();
+                        thisSolution.PopulateAssignment(status, Solution_Assignment, menu, Users);
+                    }
+                    else
+                    {   UserSatisfaction[] userSatVecs = new UserSatisfaction[Users.Count];
+
+                        IIntMap satisfiedUser = opl.GetElement("satisfiedUser").AsIntMap();
+                        IIntMap satAppetMin = opl.GetElement("satAppetMin").AsIntMap();
+                        IIntMap satAppetMax = opl.GetElement("satAppetMax").AsIntMap();
+                        IIntMap satEntreeMin = opl.GetElement("satEntreeMin").AsIntMap();
+                        IIntMap satEntreeMax = opl.GetElement("satEntreeMax").AsIntMap();
+                        IIntMap satDessertMin = opl.GetElement("satDessertMin").AsIntMap();
+                        IIntMap satDessertMax = opl.GetElement("satDessertMax").AsIntMap();
+                        IIntMap satBeverageMin = opl.GetElement("satBeverageMin").AsIntMap();
+                        IIntMap satBeverageMax = opl.GetElement("satBeverageMax").AsIntMap();
+                        for (int i = 0; i < Users.Count; i++)
+                        {
+                            UserSatisfaction thisUserSat = new UserSatisfaction();
+                            userSatVecs[i] = thisUserSat;
+                            userSatVecs[i].userID = Users[i].UserID;
+                            userSatVecs[i].PERSONTOTAL_SAT = (satisfiedUser.Get(Users[i].UserID)==1);
+                            userSatVecs[i].PERSONMINAPPET_SAT = (satAppetMin.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMAXAPPET_SAT = (satAppetMax.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMINENTREE_SAT = (satEntreeMin.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMAXENTREE_SAT = (satEntreeMax.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMINDESSERT_SAT = (satDessertMin.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMAXDESSERT_SAT = (satDessertMax.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMINBEV_SAT = (satBeverageMin.Get(Users[i].UserID) == 1);
+                            userSatVecs[i].PERSONMAXBEV_SAT = (satBeverageMax.Get(Users[i].UserID) == 1);
+                        }
+                        status = 1;
+                        thisSolution = new SolutionInterpretters();
+                        thisSolution.PopulateAssignment(status, Solution_Assignment, userSatVecs, menu, Users);
+                    }
+                    
+                }
+				
+				           catch (ILOG.OPL.OplException ex)
+            {
+                Console.WriteLine(ex.Message + " (OPL Exception)");
+                status = 2;
+            }
+            catch (ILOG.Concert.Exception ex)
+            {
+                Console.WriteLine(ex.Message + " (Concert Exception)");
+                status = 3;
+            }/*
+
+
+	

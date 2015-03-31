@@ -1,0 +1,225 @@
+/*
+Comment
+*/
+
+dvar float+ Gas;
+dvar float+ Chloride;
+
+maximize
+40 * Gas + 50 * Chloride;
+subject to {
+  ctMaxTotal:
+    Gas + Chloride <= 50;
+  ctMaxTotal2:
+    2 * Gas + 4 * Chloride <= 180;
+  ctMaxChloride:
+    Chloride <= 40;
+}
+
+/////////Basic Data Types
+/*
+integers (int), floats, strings, piecewise linear functions (pwlFunction), stepwise functions (stepFunction)
+*/
+
+int i = 25;
+int n = 3;
+int size = n * n;
+float f = 3.2;
+ 
+/*
+strings
+Escape sequences inside literal strings
+
+\b 	backspace
+\t	tab
+\n	newline
+\f	form feed
+\r	carriage return
+\" 	double quote
+\\	backslash
+\ooo	octal character ooo
+\xXX	hexadecimal character XX
+
+To continue literal string over several lines, escape the newline character
+
+"first line \
+second line"
+*/
+
+/*
+Piecewise linear functions 
+Must ensure the values of array T are sorted
+meanings of S, T, and V vectors
+
+Syntax:
+  pwlFunction F = piecewise(i in 1..n){ S[i] -> T[i]; S[n+1] }(t0, v0);
+
+  pwlFunction F = piecewise{ V[1] -> T[1], ..., V[n] -> T[n], V[n+1]};
+
+  pwlFunction F(i in ...) = piecewise (...)[...];
+*/
+int n = 2;
+float objectiveforxequals0 = 300;
+float breakpoint[1..n] = [100, 200];
+float slope[1..n=1] = [1,2,-3];
+dvar int x;
+maximize piecewise(i in 1..n)
+{slope[i] -> breakbpoint[i]; slope[n+1]} (0, objectiveforxequals0) x;
+subject to 
+{
+  true;
+}
+
+/*
+Stepwise function
+
+Syntax:
+  stepFunction F = stepwise(i in 1..n) { V[i] -> t[i]; V[n+1]};
+  stepFunction F = stepwise{ V[1] -> t[1], ..., V[n], V[n+1];
+  stepFunction F[i in ...] = stepwise(...)[...];
+*/
+
+stepFunction f = stepwise { 0 -> 3; 2};
+
+//Range
+range Rows = 1..10;
+int n = 8;
+range Rows = n+1..2*n+1;
+
+range R = 1..100;
+int A[R];//A is an array of 100 integers. Use R's elements as indexers
+
+forall(i in R){
+   //element of a loop
+ }
+ 
+dvar int i in R; //i must exist in range R 
+
+//range float declaration
+range float X = 1.0..100.0;
+dvar float x in X;
+
+/////////Basic Data Structures
+/*
+arrays, tuples, sets ==> complex data structures
+*/
+
+int a[1..4] = [10, 20, 30, 50];
+float f[1..4] = [1.2, 2.3, 3.4, 5.6];
+string d[1..2] = ["Monday", "Wednesday"];
+
+range R = 1..4;
+int a[R] = [10, 20, 30, 40];
+string Days[1..7] = ["M", "T", "W", "R", "F", "S", "Sun"];
+int a[Days] = [10, 20, 30, 40, 50, 60, 70];
+a["M"]; // => 10
+
+//Exploiting sparsity => Arrays can be indexed by finite sets of arbitrary types
+
+tuple Edges {
+  int orig;
+  int dest;
+}
+{Edge} Edges = {<1,2>,<1,4>,<1,5>};
+int a[Edges] = [10, 20, 30];
+a[<1,2>]; //10
+
+
+//Multidimensional arrays
+int a[1..2][1..3] = [
+ [1,2],
+ [3,4]
+];
+int a[Days][1..3]  = ...;
+a[Monday][1]; //
+
+{string} Warehouses = ...;
+{string} Customers = ...;
+
+int transp[Warehouses, Customers] = ...; //might be sparse
+
+//taking advantage of sparsity
+tuple Route{ 
+string w;
+string c;
+}
+
+{Route} routes = ...;
+int transp[routes] = ...;
+
+//Declare tuples
+
+tuple Point {
+  int x;
+  int y;
+}
+
+Point point[i in 1..3] = <i, i + 1>;
+
+Point p = <2, 3>;
+int x = p.x;
+
+tuple Rectangle {
+  Point ll;
+  Point ur;
+}
+
+tuple Pair { string o; string d; };
+setof(Pair) odpairs = 
+{<"MIA", "EWR">,<"MIA", "SFO">,
+<"SFO", "BOS">,<"EWR", "SFO">
+}
+setof(string) origins = { o | <o,d> in odpairs};
+setof(string) destinations = { d | <o,d> in odpairs};
+setof(string) Cities = origins union destinations;
+
+
+float c = i/sqrt(j);
+setof(int) indices = { i  | i in range: x[i] > 0 };
+
+float coef[i in 1..5] = 1.0/i;
+
+//Data driven relaxations
+
+int includeBundleConstraint  = ...;
+if (includeBundleConstraint == 1){
+  forall(i in S1){
+    sum(j in S2) x[j] <= b[i];
+  }
+} else {
+}
+
+
+/*
+Logical and linear expression
+*/
+
+min/minl, max/maxl: min/max over list
+abs: absolute value 
+Piecewise linear expressions
+
+Logical Expressions
+AND (&&), OR (||), NOT(!)
+Imply (=>), Equivalent (==), Different (!=)
+
+Note: Imply: Operation on 2 logical values 
+p -> q
+When p true, q false --> p does not imply q 
+but for all other cases, p implies q 
+
+A -> B == !A | B 
+If A is true, B is also true  ---> if A is false, can't say anything about B 
+
+When we use imply in Cplex, when A is true, forces a check that B is true 
+
+A  |  B  | A -> B
+T     T      T
+T     F      F
+F     T      T 
+F     F      T 
+
+//helps to elimiate some big-M bounds
+(x==0) => (y == 0);
+zeros == sum(i in Index) (x[i] == 0);
+
+deviation == max(i in Index) abs(x[i] - target);

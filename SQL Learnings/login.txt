@@ -1,0 +1,28 @@
+#If getting errors from trying to do SQL-based authentication, from your c# code or whatever, means you must set up SQL-based authentication or mixed mode (Windows AND SQL-based) for your server
+
+
+SQL Server setup:
+On Windows 8, use MS SQL Management Studio:
+
+[1] Security -> Properties --> Change the authentication mode to mixed (the option with both Windows and SQL-based)
+[2] Security -> Logins --> sa --> Properties --> Change the password into something like 'password' or w/e. 
+    Somehow make sure 'sa' is enabled. 
+	I had to use cmd to do that
+	
+	[Windows]-R ---> cmd ---> sqlcmd -S localhost\SqlExpress     #name of my server. You can see it in MS SQL Management Studio Windows
+	  -- you are logged in as 'dbo' (db owner, not the same as database_owner)
+	  -- default can use database 'Master'
+	ALTER LOGIN sa ENABLE ;
+    GO
+	USE MASTER;
+	GO
+
+Some SQL commands:
+In command prompt, must write 'Go' after when you intend to execute prior commands.
+
+Some userful commands:
+-- comment
+-- print names of all db users
+SELECT name FROM sys.database_principals;
+
+

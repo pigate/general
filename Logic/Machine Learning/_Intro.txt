@@ -1,0 +1,123 @@
+Machine Learning (ML)
+
+*
+Regression Problems vs. Classification
+---------
+Regression Problem: Given data, predict future pattern
+Classification: Given data, classify
+
+*
+Supervised vs Unsupervised Learning
+----------
+Supervised: give computer the correct data to train it.
+Unsupervised: let compouter figure it out.
+
+[S] Given email labeled as spam/not spam, learn a spam filter
+[U] Given set of news articles found on web, group into set of articles about same story
+[U] Given DB of customer data, automatically discover market segments and group customers into different market segments
+[S] Given dataset of patients diagnosed as either having diabetes or not, learn to classify new patients as having diabetes or not.
+
+Organize computing clusters,
+Market segmentation,
+Social network analysis,
+Astronomical Data Analysis,
+Gene Analysis
+
+*
+Cocktail party problem algorithm
+[W,s,v] = svd((repmat(sum(x.*x,1), size(x,1),1).*x)*x');
+
+Regression: predict continuous value 
+
+Breast Cancer: Malignant or Benign? Classification: Discrete Valued Output (0 or 1)
+
+Or Classification: 0 (benign), 1(cancer type 1), 2 (cancer type2)
+
+Classification
+1     xx   xxx
+0    x ____x_____x_________>
+
+     vs tumor size
+
+Can draw crosses
+
+or can draw O's for benign, and X's for cancer types
+
+___o__x_o_xxx_o_x-->
+tumore size
+
+Age
+^     x 
+|    x xx ox
+|  xo x x x
+|------------->
+   Tumor Size
+   
+   
+What if we use infinite number of features, not just 2. 3. or 5?
+
+Neat mathematical trick allows cpu to deal with infinite number of features.
+An Algorithm
+
+
+So... Classification or Regression problem?
+problem 1: Large inventory of identical items
+Predict how many of these items will sell over the next 3 months
+---> Regression
+problem 2: Software examines individual customer accoutns, 
+For each account decide whether hacked/compromised
+----> Classification
+
+
+------
+Unsupervised Learning/Clustering 
+
+Just given data points, no labels. 
+Not told what to do with it.
+
+Find some structure.
+
+Clustering algorithm:
+Google News --> groups news stories into cohesive groups by topic
+Click on a url, go to 
+eg) Data lives in 2 clusters.
+^         o o o 
+|            o    
+|    o 
+|  o o
+------------->
+
+ORganize computing cluster. More efficient. Which data nodes tend to work together?
+Given knowledge of what friends you email the most, can you figure out what are the clusters of friends?
+Market segmentation. Group customers to figure out what are the market segments?
+Astronomical Data Analysis to give interesting theories of how galaxies are formed.
+
+Cocktail party problem
+Overlapping voices. 
+2 people talking at same time. Put 2 microphones in the room, which, positioned in different places,
+records different overlapping combo of each voice. 
+
+The algorithm will separate out the voices!!
+
+Music + voice --> separate out each.
+
+[W,s,v] = svd((repmat(sum(x.*x,1), size(x,1), 1).*x)*x');
+
+Octave!!
+svd = single value decomposition alg.
+
+Learn much faster using Octave as first prototyping tool.
+Only after that, migrate to C++/Java, etc.
+
+Which would you address using unsupervised learning algorithm?
+Given:
+1) email labeled as spam/not spam, learn a spam filter
+[Unsupervised] 2) Given a set of news articles found on web, group them into a set of articles about the same story
+[Unsupervised] 3) Given database of customer data, automatically discover market segments and group customers 
+    into different market segments
+4) Given dataset of patients diagnosed as either having diabetes or not, 
+     learn to classify new patients as having diabetes or not
+	 
+
+
+

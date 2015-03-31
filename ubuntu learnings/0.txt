@@ -1,0 +1,1 @@
+You can find it in /proc/cpuinfo; cache size for the total size, and cache_alignment for the block size.

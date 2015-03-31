@@ -1,0 +1,2 @@
+http://stackoverflow.com/questions/4982403/sql-server-update-trigger-not-unique-insert-issue
+ALTER TABLE Portal ADD ID int identity(1,1) primary key;

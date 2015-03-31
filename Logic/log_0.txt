@@ -1,0 +1,8 @@
+Hypothesis: If p then q
+Converse: If q then p
+Inverse: If not p then not q
+Contrapositive: If not q then not p
+
+If statement true, then contrapositive is also logically true 
+If converse true then inverse is also logically true 
+o

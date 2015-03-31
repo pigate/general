@@ -1,0 +1,6 @@
+USE EFTest;
+
+--lists foreign keys for a given table
+EXEC sp_fkeys 'Hotel'
+
+EXEC sp_fkeys 'Airwall'

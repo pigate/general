@@ -1,0 +1,18 @@
+# no .log files
+*.log
+
+# but do track lib.log even though ignoring .log files above
+!lib.log
+
+#only ignore the root TODO file, not subdir /TOTO
+/TODO
+
+#ignore all files in the build/directory
+build/
+
+#ignore doc/notes.txt, but not doc/server/arch,txt
+doc/*.txt
+
+#ignore all .txt files in the doc/ directory
+doc/**/*.txt
+

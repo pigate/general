@@ -1,0 +1,106 @@
+/*********************************************
+ * OPL 12.6.0.0 Data
+ * Author: Ankit
+ * Creation Date: Jan 13, 2015 at 8:53:29 AM
+ *********************************************/
+
+
+requestMeal = "l";
+MIN_RATING = 3;
+budget = 10000;
+
+
+
+//AllIngr={"Chicken","Pork","Steak","Egg","Peanuts","Garlic","Milk","Wheat","Sugar","Salt","Alcohol","Caffiene","Fish","Lamb","Shellfish","Scallop","Rice"};
+itemIDs = {	
+	"SavoryAlcohol",					
+	"MilkyAlcohol",					
+	"Coffee",					
+	"Soda with Caffiene",		
+	"Soda without Caffiene",	
+	"Zero Sugar Soda"
+};
+/*
+tuple items
+{
+ 	float costPerUnit;
+	{string} OptionalIngrID;
+	{string} RequiredIngrID;
+	float rating;
+	
+	//the following are indicator variables
+	int bfItem;
+	int lunchItem;
+	int highTeaItem;
+	int dinnerItem;
+	
+	int appetizer;
+	int entree;
+	int dessert;
+	int beverage;
+};
+*/
+
+Items=#[
+	"SavoryAlcohol": 			<11,		{"Chicken"},{"Sugar" "Alcohol" "Salt"},				5,0,1,1,1,0,0,0,1>,
+	"MilkyAlcohol": 			<11,		{},{"Milk" "Alcohol"},						3.5,0,1,1,1,0,0,0,1>,
+	"Coffee": 					< 5,		{},{"Caffiene" "Beef"},							3.5,1,1,1,1,0,0,0,1>,
+	"Soda with Caffiene": 		< 3, 		{},{"Sugar" "Caffiene" "Beef"},					3.5,0,1,1,1,0,0,0,1>,
+	"Soda without Caffiene": 	< 3, 		{},{"Sugar" "Beef"},								3.5,0,1,1,1,0,0,0,1>,
+	"Zero Sugar Soda": 			< 3, 		{"Fowl"},{"Caffiene" },							3.5,0,1,1,1,0,0,0,1>
+	
+	
+]#;
+
+//User definition
+userIDs = {"A" "B" "C" "D" "E" };
+
+UserDislikedIngr =
+#[
+	"A": <{"Beef"}>,
+	"B": <{"Beef"}>,
+	"C": <{"Chicken"  "Beef"}>,
+	"D": <{"Beef"}>,
+	"E": <{"Beef"}>
+]#;
+
+numUserRatings = 0;
+
+UserRatings = 
+[];
+
+itemsPrechosen = {};
+
+preAssDishes={};
+
+
+//Menu definition
+/*
+ tuple menuProps
+ {
+    int PERSON_APPET_MIN;
+    int PERSON_APPET_MAX;
+    int PERSON_ENTREE_MIN;
+    int PERSON_ENTREE_MAX;
+    int PERSON_DESSERT_MIN;
+    int PERSON_
+	DESSERT_MAX;
+    int PERSON_BEVERAGE_MIN;
+    int PERSON_BEVERAGE_MAX;
+    int PARTY_APPET_MAX;
+    int PARTY_ENTREE_MAX;
+    int PARTY_DESSERT_MAX;
+    int PARTY_BEVERAGE_MAX;
+};
+*/
+
+menus=
+<
+0, 0, 0, 0, 0, 0, 1, 1, 6,6,6, 3
+>;
+
+/*********************************************
+ * OPL 12.6.1.0 Data
+ * Author: EF Tittu
+ * Creation Date: Jan 13, 2015 at 8:53:10 AM
+ *********************************************/

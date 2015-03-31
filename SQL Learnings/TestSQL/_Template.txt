@@ -1,0 +1,33 @@
+USE EFTest;
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'PROC')
+BEGIN
+DROP PROCEDURE PROC
+PRINT 'DROPPED PROCEDURE: PROC'
+END
+GO
+
+CREATE PROCEDURE PROC
+  @ReqID varchar(50),
+  @Option_FromAlloc int, --if == 0, from UnallocatedRequest Table, else from AllocatedRequest Table
+  @NewReqID varchar(50) OUTPUT,
+  @ErrorMessage varchar(MAX) OUTPUT,
+  @Status int OUTPUT
+AS
+BEGIN
+  DECLARE @ID table(id varchar(50))
+
+  BEGIN TRAN tx
+  BEGIN TRY
+  
+  
+    COMMIT TRAN tx
+	
+  END TRY
+  BEGIN CATCH
+    ROLLBACK TRAN tx
+  
+  END CATCH
+END
+RETURN
+GO

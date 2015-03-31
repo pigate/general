@@ -1,0 +1,59 @@
+
+execute INITIALIZE2
+{
+	cplex.solnpoolagap = 0;
+}
+	
+//if include this, must explicitly set control flow.
+main(){
+/*
+   thisOplModel.generate();
+   cplex.solve();
+   writeln("Obj1: ", cplex.getObjValue());
+   thisOplModel.postProcess();
+   //cplex.clearModel();
+
+	var opl1 = new IloOplModel(thisOplModel.modelDefinition, cplex);
+	var data1 = thisOplModel.dataElements;
+	var def = thisOplModel.modelDefinition;
+	
+	var newOpl = new IloOplModel(def, cplex);
+	
+	var Assignments = thisOplModel.Assignment;
+
+	var prechosen_dishes = new Array();
+	
+	var itemsPrechosen = thisOplModel.itemsPrechosen;
+
+	var userIDS = thisOplModel.userIDs;
+	var prechosen_empty = false;
+	if (itemsPrechosen.size == 0)
+	  prechosen_was_empty = true;
+	else
+	  prechosen_was_empty = false; 
+	if (prechosen_was_empty)  { 
+	  for(var u in data1.userIDs){
+		 for(var i in data1.itemIDs){
+		   if (Assignments[u][i] == true ){
+		 	  itemsPrechosen.add(i)
+		     //prechosen_dishes.add(i);		   
+		   }		 
+		 }
+	  }	
+    }	
+    cplex.solnpool
+    cplex.populate();
+	//thisOplModel.itemsPrechosen = prechosen_dishes;
+	//data1.itemsPrechosen = prechosen_dishes;
+	writeln("-------------");
+	
+	//data1.a = 3;
+	//data1.b = 2;
+	
+	//newOpl.addDataSource(data1);
+	//newOpl.generate();
+	//cplex.solve();	
+	//writeln("Obj2", cplex.getObjValue());
+	//newOpl.postProcess();
+	*/
+}

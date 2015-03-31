@@ -1,0 +1,97 @@
+Model Representation: Regression
+
+Supervised Learning: Given "right" answer for each example  in the data
+1) Regression Problem: Predict real-valued output
+2) Classification Problem: Predict discrete-valued output (IS it benign or malignent?)
+
+Provide Training set of housing prices
+m = Number of training examples
+x = "input" variable/features
+y = "output" variable/"target" variable
+
+(x,y) - one training example
+(x (i), y (i)) - ith traning eample. i as index
+
+x(1) = 2014
+x(2) = 1416
+
+y(1) = 460
+
+Training Set
+      |
+	  v 
+	  Learning Algorithm
+	  |
+	  v
+Size-> h ---> Estimated prices
+of 
+house
+
+h = hypothesis. Our alg is kind of known as a hypothesis.
+h maps from x's to y's
+
+h theta (x) = theta 0 + theta 1 x
+Shorthand: h(x)
+Predicts y is linear function of x. straight line function of x
+h(x) = THETA 0 + Theta 1 x
+
+This is also called:
+Linear regression with one variable
+Univariate linear regression = 1 variable 
+
+====
+Cost Function: helps us fit best possible straight line to data
+
+Training Set, Hypothesis h 
+Thetas: Parameters
+Theta0, Theta1, etc.
+
+With different THetas, get different hypothesis functions.
+
+h_theta(x) = theta0 + theta1(x)
+
+theta0 = 1.5
+theta1 = 0
+h_theta(x) = 1.5 + 0(x)
+
+
+
+h_theta(x) = 0.5x
+
+h_theta(x) = 1 + 2x
+
+Come up with vslues theta0, theta1 that correspond to good fitting data
+Choose theta0, theta1 so that h_theta is close to y for our training examples (x, y)
+
+Solve a minimization problem for theta0, theta1 
+minimize SUM(h_theta(x (i)) - y(i))^2 for i = 1..m  
+ 
+ even betteer: do it average error way. makes math easier in future
+ 
+   minimize (1/2m)SUM(h_theta(x (i)) - y(i))^2 for i = 1..m  
+   
+   Cost function:
+   squared_error_function = J(theta0, theta1) = 
+     (1/2m)SUM(h_theta(x (i)) - y(i))^2 for i = 1..m 
+	 
+Minimize J(theta0, theta1)
+theta0, theta1 
+
+Simplified: theta0 = 0
+h_theta = theta1*x
+
+J--> J(theta1) = (1/2m)SUM(theta1*x - y(i))^2 for i = 1..m 
+
+For fixed theta1, h_theta(x) is function of x
+J(theta1)  is function of parameter theta1
+
+for m = 3, i = 1..3...
+for a system actually modeled by y = x
+J(theta1) = (1/2m)SUM(h_theta(x (i)) - y(i))^2 for i = 1..m
+			= (1/2m)SUM(theta1*x(i) - y(i)) ^2 
+	J(1)= (1/2m)(0 + 0 + 0)^2 = 0^1/2
+	J(0.5) = (1/2m)( (.5))^2
+	J(0) = (1/2(3))((1)^2 + (2)^2 + (3)^2) = 14/6
+	if theta1 = 0, have hypothesis horizontal line
+	
+	
