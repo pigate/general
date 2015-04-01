@@ -1,0 +1,201 @@
+octave-3.2.4.exe:2> who
+octave-3.2.4.exe:3> PS1('>> ');
+>> A = [1 2; 2 3; 3 5]
+A =
+
+   1   2
+   2   3
+   3   5
+
+>> help save
+>> save Hello.txt -ascii A
+>> load Hello.txt
+>> load('Hello.txt')
+>> B = load('Hello.txt')
+B =
+
+   1   2
+   2   3
+   3   5
+
+>> A == B
+ans =
+
+   1   1
+   1   1
+   1   1
+
+>> C = [A B]
+C =
+
+   1   2   1   2
+   2   3   2   3
+   3   5   3   5
+
+>> C = [A; B]
+C =
+
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+
+>> C = [A; A; A]
+C =
+
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+
+>> A(:)
+ans =
+
+   1
+   2
+   3
+   2
+   3
+   5
+
+>> size(A)
+ans =
+
+   3   2
+
+>> A
+A =
+
+   1   2
+   2   3
+   3   5
+
+>> A(:,1)
+ans =
+
+   1
+   2
+   3
+
+>> A(:,2)
+ans =
+
+   2
+   3
+   5
+
+>> A(1,:)
+ans =
+
+   1   2
+
+>> A(1,2)
+ans =  2
+>> A(1,1)
+ans =  1
+>> C
+C =
+
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+
+>> A
+A =
+
+   1   2
+   2   3
+   3   5
+
+>> who
+Variables in the current scope:
+
+A      B      C      Hello  ans
+
+>> clear Hello
+>> who
+Variables in the current scope:
+
+A    B    C    ans
+
+>> whos
+Variables in the current scope:
+
+  Attr Name        Size                     Bytes  Class
+  ==== ====        ====                     =====  =====
+       A           3x2                         48  double
+       B           3x2                         48  double
+       C           9x2                        144  double
+       ans         1x1                          8  double
+
+Total is 31 elements using 248 bytes
+
+>> save Hello.txt -ascii A B
+>> load Hello.txt
+>> who
+Variables in the current scope:
+
+A      B      C      Hello  ans
+
+>> Hello
+Hello =
+
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+
+>> A
+A =
+
+   1   2
+   2   3
+   3   5
+
+>> B
+B =
+
+   1   2
+   2   3
+   3   5
+
+>> C
+C =
+
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+   1   2
+   2   3
+   3   5
+
+>> C = [A B]
+C =
+
+   1   2   1   2
+   2   3   2   3
+   3   5   3   5
+
+>> save Hello.txt -ascii A C
+>> load Hello.txt
+error: load: Hello.txt: inconsistent number of columns near line 4
+error: load: unable to extract matrix size from file `Hello.txt'
+>>

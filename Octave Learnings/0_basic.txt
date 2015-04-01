@@ -1,0 +1,126 @@
+5x5 Identity Matrix:
+ans =
+
+Diagonal Matrix
+
+   1   0   0   0   0
+   0   1   0   0   0
+   0   0   1   0   0
+   0   0   0   1   0
+   0   0   0   0   1
+
+Program paused. Press enter to continue.
+Plotting Data ...
+m: 97Program paused. Press enter to continue.
+
+octave-3.2.4.exe:38> 2^6
+ans =  64
+octave-3.2.4.exe:39> 1==2
+ans = 0
+octave-3.2.4.exe:40> 1==2 %false
+ans = 0
+octave-3.2.4.exe:41> 1 ~= 2
+ans =  1
+octave-3.2.4.exe:42> 1 || 0
+ans =  1
+octave-3.2.4.exe:43> 1 && 0
+ans = 0
+octave-3.2.4.exe:44> 2 || 3
+ans =  1
+octave-3.2.4.exe:45> 2 && 3
+ans =  1
+octave-3.2.4.exe:46> xor(1,0)
+ans =  1
+octave-3.2.4.exe:47> PS('>> ');
+error: `PS' undefined near line 47 column 1
+octave-3.2.4.exe:47> PS1('>> ');
+>> a = 3
+a =  3
+>> a = 3;
+>> disp(a)
+ 3
+>> disp(sprintf('2 decimals: %0.2f',a))
+2 decimals: 3.00
+>> A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+
+>> v  = 1:0.1:2
+v =
+
+ Columns 1 through 7:
+
+    1.0000    1.1000    1.2000    1.3000    1.4000    1.5000    1.6000
+
+ Columns 8 through 11:
+
+    1.7000    1.8000    1.9000    2.0000
+
+>> ones(2,3)
+ans =
+
+   1   1   1
+   1   1   1
+
+>> c = 2*ones(2,3)
+c =
+
+   2   2   2
+   2   2   2
+
+>> w = rand(1,3)
+w =
+
+   0.98556   0.40860   0.24667
+
+>> p = [w;w]
+p =
+
+   0.98556   0.40860   0.24667
+   0.98556   0.40860   0.24667
+
+>> w = randn(1,3) %from gaussian dist with mean = 0
+w =
+
+  -1.15958   0.39710  -1.37025
+
+>> w = -6 + sqrt(10)*(randn(1,10000))
+>> hist(w)
+>> hist(w,50) %50 bins
+>> eye(4)
+ans =
+
+Diagonal Matrix
+
+   1   0   0   0
+   0   1   0   0
+   0   0   1   0
+   0   0   0   1
+
+>> I4 = eye(4)
+I4 =
+
+Diagonal Matrix
+
+   1   0   0   0
+   0   1   0   0
+   0   0   1   0
+   0   0   0   1
+
+>> eye(3)
+ans =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+
+>> help eye
+>> help rand
+>> help help
+>>
+>>

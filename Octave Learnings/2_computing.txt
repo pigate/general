@@ -1,0 +1,299 @@
+>>v + ones(length(v),1)
+ans =
+
+   2
+   3
+   4
+
+>>length(v)
+ans =  3
+>>v + ones(3,1)
+ans =
+
+   2
+   3
+   4
+
+>>v + 1
+ans =
+
+   2
+   3
+   4
+
+>>A
+A =
+
+   1   2
+   3   4
+   5   6
+
+>>A' %A transpose
+ans =
+
+   1   3   5
+   2   4   6
+
+>>(A')'
+ans =
+
+   1   2
+   3   4
+   5   6
+
+>>a = [1 14 2 0.5]
+a =
+
+    1.00000   14.00000    2.00000    0.50000
+
+>>val = max(a)
+val =  14
+>>[val, ind] = max(a)
+val =  14
+ind =  2
+>>max(A)
+ans =
+
+   5   6
+
+>>a < 3
+ans =
+
+   1   0   1   1
+
+>>A
+A =
+
+   1   2
+   3   4
+   5   6
+
+>>find(a < 3)
+ans =
+
+   1   3   4
+
+>>a
+a =
+
+    1.00000   14.00000    2.00000    0.50000
+
+>>A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+>>A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+>>A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+>>[r,c] = find(A > 7)
+r =
+
+   1
+   3
+
+c =
+
+   1
+   2
+
+>>max(A)
+ans =
+
+   8   9   7
+
+>>help find
+>>sum(a)
+ans =  17.500
+>>prod(a)
+ans =  14
+>>a
+a =
+
+    1.00000   14.00000    2.00000    0.50000
+
+>>floor(a)
+ans =
+
+    1   14    2    0
+
+>>ceil(a)
+ans =
+
+    1   14    2    1
+
+>>rand(3)
+ans =
+
+   0.86565   0.62708   0.52313
+   0.35231   0.70723   0.65945
+   0.75187   0.80655   0.86971
+
+>>max(rand(3),rand(3))
+ans =
+
+   0.91116   0.82738   0.43833
+   0.40571   0.45443   0.89956
+   0.58069   0.44323   0.39429
+
+>>A
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+>>max(A, [],1)
+ans =
+
+   8   9   7
+
+>>max(A)
+ans =
+
+   8   9   7
+
+>>max(A,[],2)
+ans =
+
+   8
+   7
+   9
+
+>>max(A) %max of each column
+ans =
+
+   8   9   7
+
+>>max(max(A))
+ans =  9
+>>max(A, [], 1) %defaults to column
+ans =
+
+   8   9   7
+
+>>max(A, [], 2) %max of each row
+ans =
+
+   8
+   7
+   9
+
+>>A = magic(9)
+A =
+
+   47   58   69   80    1   12   23   34   45
+   57   68   79    9   11   22   33   44   46
+   67   78    8   10   21   32   43   54   56
+   77    7   18   20   31   42   53   55   66
+    6   17   19   30   41   52   63   65   76
+   16   27   29   40   51   62   64   75    5
+   26   28   39   50   61   72   74    4   15
+   36   38   49   60   71   73    3   14   25
+   37   48   59   70   81    2   13   24   35
+
+>>sum(A, 1) %column wide sum
+ans =
+
+   369   369   369   369   369   369   369   369   369
+
+>>sum(A, 2) %row wide sum
+ans =
+
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+
+>>eye(9)
+ans =
+
+Diagonal Matrix
+
+   1   0   0   0   0   0   0   0   0
+   0   1   0   0   0   0   0   0   0
+   0   0   1   0   0   0   0   0   0
+   0   0   0   1   0   0   0   0   0
+   0   0   0   0   1   0   0   0   0
+   0   0   0   0   0   1   0   0   0
+   0   0   0   0   0   0   1   0   0
+   0   0   0   0   0   0   0   1   0
+   0   0   0   0   0   0   0   0   1
+
+>>A .* eye(9)
+ans =
+
+   47    0    0    0    0    0    0    0    0
+    0   68    0    0    0    0    0    0    0
+    0    0    8    0    0    0    0    0    0
+    0    0    0   20    0    0    0    0    0
+    0    0    0    0   41    0    0    0    0
+    0    0    0    0    0   62    0    0    0
+    0    0    0    0    0    0   74    0    0
+    0    0    0    0    0    0    0   14    0
+    0    0    0    0    0    0    0    0   35
+
+>>sum(sum(A.*eye(9)))
+ans =  369
+>>sum(sum(A.*flipud(eye(0))))
+error: product: nonconformant arguments (op1 is 9x9, op2 is 0x0)
+error: evaluating argument list element number 1
+error: evaluating argument list element number 1
+error: evaluating argument list element number 1
+error: evaluating argument list element number 1
+>>sum(sum(A.*flipud(eye(9))))
+ans =  369
+>>flipud(eye(9))
+ans =
+
+Permutation Matrix
+
+   0   0   0   0   0   0   0   0   1
+   0   0   0   0   0   0   0   1   0
+   0   0   0   0   0   0   1   0   0
+   0   0   0   0   0   1   0   0   0
+   0   0   0   0   1   0   0   0   0
+   0   0   0   1   0   0   0   0   0
+   0   0   1   0   0   0   0   0   0
+   0   1   0   0   0   0   0   0   0
+   1   0   0   0   0   0   0   0   0
+
+>>pinv(A)
+>>temp = pinv(A)
+>>A = eye(3)
+A =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+
+>>pinv(A)
+ans =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+
+>>
